@@ -1,0 +1,9 @@
+name: SprawlingDungeon
+version: @version@
+main: me.jishuna.sprawlingdungeon.SprawlingDungeon
+authors: [Jishuna]
+api-version: 1.16
+
+commands:
+  dungeon:
+    description: 'Make Dungeon'

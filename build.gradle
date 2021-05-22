@@ -1,0 +1,37 @@
+plugins {
+	id 'java'
+	id 'com.github.johnrengelman.shadow' version '5.2.0'
+}
+
+group 'me.jishuna.sprawlingdungeon'
+version '1.0.0'
+
+sourceCompatibility = targetCompatibility = JavaVersion.VERSION_1_8
+
+repositories {
+	mavenLocal()
+	mavenCentral()
+	maven { url "https://repo.dmulloy2.net/nexus/repository/public/" }
+}
+
+dependencies {
+    compileOnly group: 'org.spigotmc', name: 'spigot', version: '1.16.5-R0.1-SNAPSHOT'
+    compileOnly group: "com.comphenix.protocol", name: "ProtocolLib", version: "4.6.0";
+    compile group: 'me.jishuna.jishunacommonlib', name: 'JishunaCommonLib', version: '1.0.0'
+}
+
+
+shadowJar {
+    setArchiveName('SprawlingDungeons-' + this.version + '.jar')                                              
+    relocate 'me.jishuna.commonlib', 'me.jishuna.sprawlingdungeon.libs.commonlib'                                             
+}
+
+import org.apache.tools.ant.filters.ReplaceTokens
+
+processResources {
+    from(sourceSets.main.resources.srcDirs) {
+        filter ReplaceTokens, tokens: [version: version]
+    }
+}
+
+build.dependsOn shadowJar
